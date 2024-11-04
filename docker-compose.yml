@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  gestion-station-ski-db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: station
+      MYSQL_USER: ghada
+      MYSQL_PASSWORD: your_password
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3306:3306"
+    networks:
+      - gestion-station-ski-network
+
+  gestion-station-ski-app:
+    build: .
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://gestion-station-ski-db:3306/station
+      SPRING_DATASOURCE_USERNAME: ghada
+      SPRING_DATASOURCE_PASSWORD: your_password
+    networks:
+      - gestion-station-ski-network
+
+networks:
+  gestion-station-ski-network:
+    driver: bridge
+
